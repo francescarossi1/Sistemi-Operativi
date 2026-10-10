@@ -80,3 +80,6 @@ until <lista comandi>
     do 
         <comandi>
     done
+
+#menu testuali 
+select 
