@@ -1,6 +1,7 @@
 #!/bin/sh
 # Francesca Rossi 
 
+#controllo argomenti 
 if test $# -lt 2 
 then 
     echo "Uso: contaricorrenze <file <stringhe...>"
@@ -14,12 +15,13 @@ then
     exit 2 
 fi 
 
-shift 
+shift # elimino il primo argomento dalla lista
 
 echo Controllo il file $file
 
 for i in $*
 do 
     count=`grep "$i" "$file" | wc -l`
+    count=`grep -c "$i" "$file"`
     echo "Parametro: $i - Ricorrenze: $count"
 done 
