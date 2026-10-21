@@ -58,6 +58,6 @@ PATH=$PATH:`pwd`
 export PATH
 
 # 6. Esecuzione ricorsiva e conteggio dei file copiati
-totale=`esam.sh "$estensione" "$dir1" "$dir2" | wc -l`
+totale=`esame_rec.sh "$estensione" "$dir1" "$dir2" | wc -l`
 
 echo "Numero di file complessivamente copiati: $totale"
