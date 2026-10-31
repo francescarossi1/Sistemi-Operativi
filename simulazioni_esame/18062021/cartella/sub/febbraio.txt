@@ -1,0 +1,3 @@
+10,commedia,tit1,prod1,film,30 
+8,commedia,tit2,prod2,film,10
+9,azione,tit3,prod3,tipo3,50

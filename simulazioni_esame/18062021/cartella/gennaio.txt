@@ -1,0 +1,3 @@
+1,commedia,tit1,prod1,film,2 
+2,thriller,tit2,prod2,serie,40
+3,azione,tit3,prod3,tipo3,20
