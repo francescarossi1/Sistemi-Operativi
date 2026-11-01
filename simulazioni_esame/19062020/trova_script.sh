@@ -1,47 +1,38 @@
-#!/bin/bash
+#!/bin/sh
 
-if test $# -ne 1 
-then 
-    echo "Errore: numero di argomenti errato"
-    exit 1 
-fi 
+if test $# -ne 1
+then
+    echo "Uso: $0 dir"
+    exit 1
+fi
 
-dir="$1"
-
-case "$dir" in 
-    /*) ;; 
-    *) echo "Errore: deve essere un percorso assoluto"
+case "$1" in
+    /*) ;;
+    *) echo "Errore: serve un nome assoluto di directory"
        exit 2 ;;
-esac 
+esac
 
-if test ! -d "$dir" -o ! -x "$dir" 
-then 
-    echo "Errore: la directory non esiste o non è attraversabile"
+if test ! -d "$1" -o ! -x "$1"
+then
+    echo "Errore: directory inesistente o non attraversabile"
     exit 3
-fi 
+fi
 
 PATH=$PATH:`pwd`
-export PATH 
+export PATH
 
 script="$HOME/script.txt"
-> "$script"
-export script
+touch "$script"
 
-MAX="/tmp/max.tmp"
-echo "0" > "$MAX"  
-export MAX
-
-DIR_MAX="/tmp/dir_max.tmp"
+MAX=/tmp/max$$
+DIR_MAX=/tmp/dirmax$$
+echo 0 > "$MAX"
 > "$DIR_MAX"
-export DIR_MAX
 
-trova_script_ric.sh "$dir" 
+export script MAX DIR_MAX
 
-echo "Numero massimo di script trovati in una dir: "
-cat "$MAX"
-echo "Directory con il maggior numero di script: "
+trova_script_ric.sh "$1"
+
 cat "$DIR_MAX"
-echo "Lista di tutti gli script trovati (senza estensione):"
-cat "$script"
 
 rm -f "$MAX" "$DIR_MAX"

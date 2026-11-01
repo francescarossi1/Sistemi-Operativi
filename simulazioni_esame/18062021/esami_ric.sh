@@ -9,22 +9,22 @@ shift
 
 cd "$anno"
 
-for f in *.txt  
-do 
-
+for f in *.txt
+do
     if test -f "$f" -a -r "$f"
-    then 
-        echo "`grep "$genere" "$f" | grep "$tipo" "$f" | cut -d "," -f1,3,6`" >> "$risultati"
-        
-        numero=`grep "$genere" "$f" | grep "$tipo" "$f" | wc -l`
-        
-        if test "$numero" -gt "`cat "$max"`"
-        then 
-            echo "$numero" > "$max" 
-            echo "`echo "$f" | cut -d "." -f1`" > "$mese_max"
+    then
+        grep "$genere" "$f" | grep "$tipo" | cut -d "," -f1,3,6 >> "$risultati"
+
+        numero=`grep "$genere" "$f" | grep "$tipo" | wc -l`
+        max_attuale=`cat "$max"`
+
+        if test "$numero" -gt "$max_attuale"
+        then
+            echo "$numero" > "$max"
+            echo "$f" | cut -d "." -f1 > "$mese_max"
         fi
-    fi   
-done 
+    fi
+done
 
 for d in *
 do 

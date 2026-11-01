@@ -9,23 +9,21 @@ shift
 
 cd "$cartella" 
 
-for f in *.bib 
+for f in *.bib
 do
-    if test -f "$f" -a -r "$f" 
+    if test -f "$f" -a -r "$f"
     then
         grep "$id_libro" "$f" | cut -d "-" -f2,3 >> "$LOG"
 
-       tot_righe=`wc -l < "$f"`
-        max_attuale=`cat "$MAX_COUNT"` 
+        righe_libro=`grep -c "$id_libro" "$f"`
+        max_attuale=`cat "$MAX_COUNT"`
 
-        if test "$tot_righe" -gt "$max_attuale"
-        then 
-            echo "$tot_righe" > "$MAX_COUNT" 
-            echo "$f" > "$MAX_SEZIONE" 
+        if test "$righe_libro" -gt "$max_attuale"
+        then
+            echo "$righe_libro" > "$MAX_COUNT"
+            echo "$f" > "$MAX_SEZIONE"
         fi
-
     fi
-
 done
 
 for d in *

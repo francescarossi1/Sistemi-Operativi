@@ -1,32 +1,31 @@
-# !/bin/bash
-dir="$1"
-cd "$dir"
+#!/bin/sh
+
+cd "$1"
 count=0
-for f in *.sh 
-do 
-    if test -f "$f" -a -r "$f"
-    then 
-        num=`grep -c "#!/bin/bash" "$f"`   # Aggiunta virgoletta di chiusura e rimosso lo spazio dopo '='
-        echo "$num" 
-        if test "$num" = 1 
+
+for f in *.sh
+do
+    if test -f "$f" -a -r "$f" -a -w "$f"
+    then
+        if grep -q "#!/bin/bash" "$f"
         then
-            echo "`echo "$f" | cut -d "." -f1`" >> $script
-            count=`expr $count + 1`        # Aggiunto spazio tra '+' e '1'
+            echo "`pwd`/$f" >> "$script"
+            count=`expr $count + 1`
         fi
     fi
-done 
+done
 
-
-if test "$count" -gt "`cat "$MAX"`"
-then 
+max_attuale=`cat "$MAX"`
+if test "$count" -gt "$max_attuale"
+then
     echo "$count" > "$MAX"
-    echo "$dir" > "$DIR_MAX"
+    pwd > "$DIR_MAX"
 fi
 
 for d in *
-do 
+do
     if test -d "$d" -a -x "$d"
-    then 
-        trova_script_ric.sh "$d"
+    then
+        trova_script_ric.sh "`pwd`/$d"
     fi
 done
